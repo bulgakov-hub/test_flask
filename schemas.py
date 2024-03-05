@@ -4,11 +4,18 @@ from marshmallow import Schema, validate, fields
 class TaskSchema(Schema):
     
     id = fields.Integer(dump_only=True)
-    name = fields.String(required=True, validate=validate.Length(max=250))
+    name = fields.String(required=True)
     email = fields.Email(required=True)
-    text = fields.String(required=True, validate=validate.Length(max=250))
-    # status = fields.Boolean(required=True)
-    # admin_edit = fields.Boolean(required=True)
+    text = fields.String(required=True)
+    status = fields.Boolean(dump_only=True)
+    admin_edit = fields.Boolean(dump_only=True)
+    message = fields.String(dump_only=True)
+
+
+class TaskSchemaUpdate(TaskSchema):
+    
+    status = fields.Boolean(required=False)
+    admin_edit = fields.Boolean(required=False)
 
 
 class AdminUserSchema(Schema):

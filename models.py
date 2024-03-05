@@ -1,8 +1,7 @@
 from enum import unique
+from logging import exception
 import bcrypt
-# from sqlalchemy import ForeignKey, Integer
 from app import db
-# from sqlalchemy.orm import relationship
 from flask_jwt_extended import create_access_token
 from datetime import timedelta
 from passlib.hash import bcrypt
@@ -17,8 +16,8 @@ class Task(db.Model):
     status = db.Column(db.Boolean(), nullable=False, default=False)
     admin_edit = db.Column(db.Boolean(), nullable=False, default=False)
 
-
-class AdminUser(db.Model):
+    
+class AdminUserTask(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250), nullable=False, unique=True)
@@ -44,3 +43,9 @@ class AdminUser(db.Model):
             raise Exception('No user width this password')
         
         return user
+
+
+class TokenBlocklist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String(36), nullable=False, index=True)
+    created_at = db.Column(db.DateTime, nullable=False)

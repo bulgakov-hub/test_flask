@@ -4,8 +4,8 @@ from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 
 class Config:
-    
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite'
+    FILE_DB = 'db.sqlite'
+    SQLALCHEMY_DATABASE_URI = f'sqlite:///{FILE_DB}'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TASKS_PER_PAGE = 3
     JWT_SECRET_KEY = 'bdd278a162c44c32a6a8f977602af1de'
